@@ -22,7 +22,14 @@ class Application
         @@cart.each do |item|
           resp.write "#{item}\n"
         end 
-      end 
+      end
+    elsif req.path.match(/add/)
+      search_term = req.params["items"]
+      if @@items.include?(search_term)
+        @@cart << search_term
+        resp.write "added #{search_term}"
+      else 
+        resp.write "We don't have this item"
     else
       resp.write "Path Not Found"
     end
